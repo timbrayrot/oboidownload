@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обои · галерея (редактируемая в коде)</title>
+    <title>100+ обоев скачать бесплатно</title>
     <!-- Open Graph / Twitter для Google Картинок -->
     <meta property="og:title" content="Обои — галерея изображений">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ваш-репозиторий.github.io/обои/">
-    <meta property="og:image" content="https://ваш-репозиторий.github.io/обои/preview.jpg">
+    <meta property="og:url" content="https://timbrayrot.github.io/oboidownload/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="description" content="Коллекция обоев с тегами. Добавляйте изображения через редактирование кода.">
     <style>
@@ -214,13 +213,8 @@
     <div class="container" id="app">
         <h1>
             🖼️ Обои
-            <span class="sub">— галерея (код)</span>
+            <span class="sub">— галерея</span>
         </h1>
-        <div class="code-hint">
-            ✏️ <strong>Редактируйте массив <code>wallpapers</code> в коде</strong> — 
-            <span>url</span> <span>теги</span> <span>название</span>
-            <span style="margin-left:auto; opacity:0.6;">все видят обновления</span>
-        </div>
 
         <!-- Фильтр по тегам + поиск -->
         <div class="filter-bar">
@@ -234,10 +228,7 @@
         <!-- Структурированные данные для Google Картинок -->
         <div class="schema-org" itemscope itemtype="https://schema.org/ImageGallery">
             <span itemprop="name">Обои — галерея</span>
-            <span itemprop="description">Коллекция обоев с тегами, добавляемых через код.</span>
-        </div>
-        <div class="footer-meta">
-            ⚡ Добавляйте обои через массив <code>wallpapers</code> в JavaScript · теги · поиск · Google Картинки
+            <span itemprop="description">Коллекция обоев с тегами</span>
         </div>
     </div>
 
@@ -258,26 +249,7 @@
                     url: 'https://picsum.photos/id/1043/400/250',
                     tags: ['город', 'ночь'],
                     title: 'Ночной город'
-                },
-                {
-                    id: 'img3',
-                    url: 'https://picsum.photos/id/106/400/250',
-                    tags: ['цветы', 'весна'],
-                    title: 'Весенние цветы'
-                },
-                {
-                    id: 'img4',
-                    url: 'https://picsum.photos/id/1074/400/250',
-                    tags: ['абстракция', 'градиент'],
-                    title: 'Абстракция'
-                },
-                // === ДОБАВЛЯЙТЕ НОВЫЕ ОБОИ ЗДЕСЬ (копируйте блок) ===
-                // {
-                //     id: 'img5',
-                //     url: 'https://raw.githubusercontent.com/ваш-репозиторий/папка/имя-файла.jpg',
-                //     tags: ['тег1', 'тег2'],
-                //     title: 'Название обоев'
-                // },
+                }
             ];
             // --------------------------------------------------------------
             //  НЕ МЕНЯЙТЕ КОД НИЖЕ, ЕСЛИ НЕ УВЕРЕНЫ
@@ -330,7 +302,6 @@
                                 <div class="card-body">
                                     <div style="font-weight:500; font-size:0.95rem; color:#0f172a;">${escapeHtml(title)}</div>
                                     <div class="card-tags">${tagsHtml}</div>
-                                    <a href="${escapeHtml(img.url)}" target="_blank" class="card-link" rel="nofollow">🔗 ссылка</a>
                                 </div>
                                 <meta itemprop="name" content="${escapeHtml(title)}">
                                 ${img.tags ? img.tags.map(t => `<meta itemprop="keywords" content="${escapeHtml(t)}">`).join('') : ''}
