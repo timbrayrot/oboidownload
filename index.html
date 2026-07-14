@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обои · галерея (редактируемая в коде)</title>
+    <!-- Open Graph / Twitter для Google Картинок -->
+    <meta property="og:title" content="Обои — галерея изображений">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ваш-репозиторий.github.io/обои/">
+    <meta property="og:image" content="https://ваш-репозиторий.github.io/обои/preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="Коллекция обоев с тегами. Добавляйте изображения через редактирование кода.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            padding: 30px 24px;
+        }
+        h1 {
+            font-weight: 600;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .sub {
+            color: #64748b;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+        .info-badge {
+            background: #f1f5f9;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #1e293b;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+        .info-badge code {
+            background: #e2e8f0;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 20px;
+            margin: 20px 0 28px;
+            padding: 8px 4px;
+        }
+        .filter-bar input {
+            flex: 1 1 180px;
+            padding: 10px 18px;
+            border-radius: 40px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 0.95rem;
+        }
+        .filter-bar input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            align-items: center;
+        }
+        .tag-pill {
+            background: #eef2ff;
+            color: #1e293b;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+        .tag-pill:hover {
+            background: #dbeafe;
+            border-color: #93b5f8;
+        }
+        .tag-pill.active {
+            background: #1e293b;
+            color: white;
+            border-color: #1e293b;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 8px;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: 0.25s ease;
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+            border-color: #dbeafe;
+        }
+        .card-img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            background: #f1f5f9;
+            display: block;
+        }
+        .card-body {
+            padding: 16px 16px 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 4px 0 2px;
+        }
+        .card-tag {
+            background: #f1f5f9;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #334155;
+            letter-spacing: 0.3px;
+            text-transform: lowercase;
+        }
+        .card-link {
+            font-size: 0.75rem;
+            color: #3b82f6;
+            text-decoration: none;
+            word-break: break-all;
+            opacity: 0.8;
+        }
+        .card-link:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+        .footer-meta {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 1px solid #ecf1f7;
+            padding-top: 24px;
+        }
+        .schema-org { display: none; }
+        .code-hint {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 10px 18px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .code-hint span {
+            background: #eef2ff;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <h1>
+            🖼️ Обои
+            <span class="sub">— галерея (код)</span>
+        </h1>
+        <div class="code-hint">
+            ✏️ <strong>Редактируйте массив <code>wallpapers</code> в коде</strong> — 
+            <span>url</span> <span>теги</span> <span>название</span>
+            <span style="margin-left:auto; opacity:0.6;">все видят обновления</span>
+        </div>
+
+        <!-- Фильтр по тегам + поиск -->
+        <div class="filter-bar">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или тегу...">
+            <div class="tag-cloud" id="tagCloud"></div>
+        </div>
+
+        <!-- Галерея -->
+        <div class="gallery" id="galleryContainer"></div>
+        
+        <!-- Структурированные данные для Google Картинок -->
+        <div class="schema-org" itemscope itemtype="https://schema.org/ImageGallery">
+            <span itemprop="name">Обои — галерея</span>
+            <span itemprop="description">Коллекция обоев с тегами, добавляемых через код.</span>
+        </div>
+        <div class="footer-meta">
+            ⚡ Добавляйте обои через массив <code>wallpapers</code> в JavaScript · теги · поиск · Google Картинки
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            // --------------------------------------------------------------
+            // ★★★ РЕДАКТИРУЙТЕ ЭТОТ МАССИВ: добавляйте, удаляйте, меняйте ★★★
+            // --------------------------------------------------------------
+            const wallpapers = [
+                {
+                    id: 'img1',
+                    url: 'https://picsum.photos/id/1015/400/250',
+                    tags: ['природа', 'горы'],
+                    title: 'Горный пейзаж'
+                },
+                {
+                    id: 'img2',
+                    url: 'https://picsum.photos/id/1043/400/250',
+                    tags: ['город', 'ночь'],
+                    title: 'Ночной город'
+                },
+                {
+                    id: 'img3',
+                    url: 'https://picsum.photos/id/106/400/250',
+                    tags: ['цветы', 'весна'],
+                    title: 'Весенние цветы'
+                },
+                {
+                    id: 'img4',
+                    url: 'https://picsum.photos/id/1074/400/250',
+                    tags: ['абстракция', 'градиент'],
+                    title: 'Абстракция'
+                },
+                // === ДОБАВЛЯЙТЕ НОВЫЕ ОБОИ ЗДЕСЬ (копируйте блок) ===
+                // {
+                //     id: 'img5',
+                //     url: 'https://raw.githubusercontent.com/ваш-репозиторий/папка/имя-файла.jpg',
+                //     tags: ['тег1', 'тег2'],
+                //     title: 'Название обоев'
+                // },
+            ];
+            // --------------------------------------------------------------
+            //  НЕ МЕНЯЙТЕ КОД НИЖЕ, ЕСЛИ НЕ УВЕРЕНЫ
+            // --------------------------------------------------------------
+
+            // гарантируем id
+            const images = wallpapers.map((img, index) => ({
+                ...img,
+                id: img.id || 'wp_' + index + '_' + Date.now().toString(36)
+            }));
+
+            // DOM
+            const gallery = document.getElementById('galleryContainer');
+            const searchInput = document.getElementById('searchInput');
+            const tagCloud = document.getElementById('tagCloud');
+
+            let activeTagFilter = '';
+
+            // ---------- рендер ----------
+            function render() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const tagFilter = activeTagFilter.toLowerCase();
+
+                let filtered = images.filter(img => {
+                    let matchText = true;
+                    if (searchTerm) {
+                        const titleMatch = img.title && img.title.toLowerCase().includes(searchTerm);
+                        const tagsMatch = img.tags && img.tags.some(t => t.toLowerCase().includes(searchTerm));
+                        matchText = titleMatch || tagsMatch;
+                    }
+                    let matchTag = true;
+                    if (tagFilter) {
+                        matchTag = img.tags && img.tags.some(t => t.toLowerCase() === tagFilter);
+                    }
+                    return matchText && matchTag;
+                });
+
+                if (filtered.length === 0) {
+                    gallery.innerHTML = `<div class="empty-state">✨ Нет изображений по заданным фильтрам. Добавьте обои в массив <code>wallpapers</code>.</div>`;
+                } else {
+                    let html = '';
+                    filtered.forEach(img => {
+                        const tagsHtml = img.tags && img.tags.length > 0 
+                            ? img.tags.map(t => `<span class="card-tag">${escapeHtml(t)}</span>`).join('') 
+                            : '';
+                        const title = img.title || 'Без названия';
+                        html += `
+                            <div class="card" itemscope itemtype="https://schema.org/ImageObject">
+                                <img class="card-img" src="${escapeHtml(img.url)}" alt="${escapeHtml(title)}" loading="lazy" itemprop="contentUrl">
+                                <div class="card-body">
+                                    <div style="font-weight:500; font-size:0.95rem; color:#0f172a;">${escapeHtml(title)}</div>
+                                    <div class="card-tags">${tagsHtml}</div>
+                                    <a href="${escapeHtml(img.url)}" target="_blank" class="card-link" rel="nofollow">🔗 ссылка</a>
+                                </div>
+                                <meta itemprop="name" content="${escapeHtml(title)}">
+                                ${img.tags ? img.tags.map(t => `<meta itemprop="keywords" content="${escapeHtml(t)}">`).join('') : ''}
+                            </div>
+                        `;
+                    });
+                    gallery.innerHTML = html;
+                }
+
+                renderTagCloud();
+                // обновляем schema.org в head
+                updateSchema();
+            }
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                return String(text).replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            function renderTagCloud() {
+                const allTags = new Set();
+                images.forEach(img => {
+                    if (img.tags) img.tags.forEach(t => allTags.add(t.toLowerCase()));
+                });
+                let html = '';
+                const activeClass = activeTagFilter === '' ? 'active' : '';
+                html += `<span class="tag-pill ${activeClass}" data-tag="">#все</span>`;
+                
+                allTags.forEach(tag => {
+                    const cls = (activeTagFilter.toLowerCase() === tag) ? 'active' : '';
+                    html += `<span class="tag-pill ${cls}" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</span>`;
+                });
+                tagCloud.innerHTML = html;
+
+                document.querySelectorAll('.tag-pill').forEach(el => {
+                    el.addEventListener('click', function(e) {
+                        const tag = this.dataset.tag || '';
+                        activeTagFilter = tag;
+                        render();
+                    });
+                });
+            }
+
+            // обновляем структурированные данные для Google
+            function updateSchema() {
+                // удаляем старый script
+                const oldScript = document.querySelector('script[data-schema="gallery"]');
+                if (oldScript) oldScript.remove();
+
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.dataset.schema = 'gallery';
+                const schemaData = {
+                    "@context": "https://schema.org",
+                    "@type": "ImageGallery",
+                    "name": "Обои — галерея",
+                    "description": "Коллекция обоев с тегами. Добавляйте изображения через редактирование кода.",
+                    "url": window.location.href,
+                    "image": images.map(img => img.url).filter(Boolean)
+                };
+                script.textContent = JSON.stringify(schemaData);
+                document.head.appendChild(script);
+            }
+
+            // поиск с debounce
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    render();
+                }, 200);
+            });
+
+            // инициализация
+            render();
+
+            // если массив пуст — показываем подсказку
+            if (images.length === 0) {
+                gallery.innerHTML = `<div class="empty-state">📭 Массив <code>wallpapers</code> пуст. Добавьте обои в коде.</div>`;
+            }
+
+            console.log('✅ Галерея обоев (редактируемая в коде) загружена. Изображений:', images.length);
+            // делаем доступным для консоли
+            window.__wallpapers = wallpapers;
+            window.__gallery = { images, render };
+        })();
+    </script>
+</body>
+</html>
