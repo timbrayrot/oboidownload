@@ -32,6 +32,7 @@
             border-radius: 32px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             padding: 30px 24px;
+            margin-bottom: 24px;
         }
         h1 {
             font-weight: 600;
@@ -43,6 +44,17 @@
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 12px;
+        }
+        h2.section-title {
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: -0.4px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
         .sub {
             color: #64748b;
@@ -209,6 +221,212 @@
         }
         .schema-org { display: none; }
 
+        /* ===== Секция Словарь ===== */
+        .dict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 8px;
+        }
+        .dict-card {
+            background: linear-gradient(145deg, #fafbff 0%, #ffffff 100%);
+            border-radius: 24px;
+            padding: 24px 24px 22px;
+            border: 1px solid #e8eefb;
+            box-shadow: 0 4px 16px rgba(59,130,246,0.06);
+            transition: 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .dict-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #6366f1, #3b82f6);
+        }
+        .dict-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(59,130,246,0.18);
+            border-color: #c7d9fc;
+        }
+        .dict-word {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1e293b;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .dict-word .dict-emoji {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+        .dict-origin {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            width: fit-content;
+        }
+        .dict-origin .arrow {
+            opacity: 0.6;
+        }
+        .dict-desc {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+        .dict-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .dict-tag {
+            background: #f1f5f9;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #334155;
+            text-transform: lowercase;
+        }
+        .dict-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: #94a3b8;
+        }
+
+        /* ===== Секция Мой канал ===== */
+        .channel-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 32px;
+            padding: 48px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .channel-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,0,51,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .channel-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .channel-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .channel-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .channel-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            color: white;
+        }
+        .channel-desc {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .channel-desc strong {
+            color: #ff0033;
+            font-weight: 600;
+        }
+        .channel-sub-desc {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        .channel-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff0033;
+            color: white;
+            padding: 16px 44px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s ease;
+            box-shadow: 0 10px 30px rgba(255,0,51,0.35);
+            border: none;
+            cursor: pointer;
+        }
+        .channel-btn:hover {
+            background: #cc0028;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 16px 40px rgba(255,0,51,0.45);
+        }
+        .channel-btn .yt-icon {
+            font-size: 1.3rem;
+        }
+        .channel-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+        .channel-stat {
+            text-align: center;
+        }
+        .channel-stat .stat-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ff0033;
+            display: block;
+        }
+        .channel-stat .stat-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Модальное окно для YouTube */
         .modal-overlay {
             display: none;
@@ -289,9 +507,24 @@
             from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 16px; }
+            h1 { font-size: 1.7rem; }
+            h2.section-title { font-size: 1.4rem; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+            .dict-grid { grid-template-columns: 1fr; }
+            .channel-section { padding: 32px 20px; }
+            .channel-title { font-size: 1.6rem; }
+            .channel-desc { font-size: 1rem; }
+            .channel-btn { padding: 14px 32px; font-size: 0.95rem; }
+            .channel-stats { gap: 20px; }
+            .channel-stat .stat-num { font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>
+    <!-- ==================== ГАЛЕРЕЯ ОБОЕВ ==================== -->
     <div class="container" id="app">
         <h1>
             🖼️ Обои
@@ -314,6 +547,50 @@
         </div>
     </div>
 
+    <!-- ==================== СЕКЦИЯ "МОЙ КАНАЛ" ==================== -->
+    <div class="container" id="channelSection" style="padding: 0; overflow: hidden;">
+        <div class="channel-section">
+            <div class="channel-inner">
+                <span class="channel-icon">🎤</span>
+                <h2 class="channel-title">Бомбардило Тимофило</h2>
+                <p class="channel-desc">
+                    Пишу <strong>диссы на тех, кто заслужил</strong>. 
+                    Мемные треки, сатира и музыкальный юмор — всё на моём канале.
+                </p>
+                <p class="channel-sub-desc">
+                    😈🥚67🔥 — слушай, подпевай, подписывайся
+                </p>
+                <a href="https://www.youtube.com/@Tim_Brayrot" target="_blank" rel="noopener noreferrer" class="channel-btn">
+                    <span class="yt-icon">▶️</span>
+                    Перейти на YouTube
+                </a>
+                <div class="channel-stats">
+                    <div class="channel-stat">
+                        <span class="stat-num">🔥</span>
+                        <span class="stat-label">Мемные треки</span>
+                    </div>
+                    <div class="channel-stat">
+                        <span class="stat-num">🎵</span>
+                        <span class="stat-label">Диссы</span>
+                    </div>
+                    <div class="channel-stat">
+                        <span class="stat-num">😈</span>
+                        <span class="stat-label">Юмор</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== СЛОВАРЬ ==================== -->
+    <div class="container" id="dictionarySection">
+        <h2 class="section-title">
+            📖 Словарь
+            <span class="sub">— слова, придуманные Тимофило</span>
+        </h2>
+        <div class="dict-grid" id="dictionaryContainer"></div>
+    </div>
+
     <!-- Модальное окно YouTube -->
     <div class="modal-overlay" id="youtubeModal">
         <div class="modal">
@@ -329,29 +606,41 @@
 
     <script>
         (function(){
-            // --------------------------------------------------------------
-            // ★★★ РЕДАКТИРУЙТЕ ЭТОТ МАССИВ ★★★
-            // --------------------------------------------------------------
+            // ==============================================================
+            // ★★★ МАССИВ ОБОЕВ (редактируйте) ★★★
+            // ==============================================================
             const wallpapers = [
                 {
                     id: 'img1',
                     url: 'https://timbrayrot.github.io/oboidownload/oboi/main.png',
                     tags: ['😈🥚67🔥', 'лучший ютуб канал'],
                     title: 'Бомбардило Тимофило - смотрите на YouTube',
-                    link: 'https://www.youtube.com/@Tim_Brayrot' // ссылка на YouTube
+                    link: 'https://www.youtube.com/@Tim_Brayrot'
                 },
                 {
                     id: 'img2',
                     url: 'https://timbrayrot.github.io/oboidownload/oboi/67.png',
                     tags: ['😈🥚67🔥', '67'],
                     title: '😈🥚67🔥 - лучший символ Тимофило',
-                    link: 'https://www.youtube.com/@Tim_Brayrot' // тоже ссылка на YouTube
+                    link: 'https://www.youtube.com/@Tim_Brayrot'
                 }
             ];
-            // --------------------------------------------------------------
+
+            // ==============================================================
+            // ★★★ МАССИВ СЛОВАРЯ (редактируйте) ★★★
+            // ==============================================================
+            const dictionary = [
+                {
+                    word: 'Апрегейдер',
+                    emoji: '💥',
+                    origin: 'Апгрейдер (Upgrader) + Гей',
+                    desc: 'Человек, который апгрейдит всё вокруг, но с особым, неформальным подтекстом. Слово-гибрид, объединяющее технический термин и сленговое понятие. Используется как шутливое обозначение того, кто постоянно что-то улучшает, но не всегда удачно.',
+                    tags: ['сленг', 'гибрид', 'тимофило']
+                },
+                // === Добавляйте новые слова сюда по образцу ===
+            ];
 
             const YOUTUBE_URL = 'https://www.youtube.com/@Tim_Brayrot';
-            let pendingDownloadUrl = null; // для скачивания после модалки
 
             const images = wallpapers.map((img, index) => ({
                 ...img,
@@ -364,6 +653,7 @@
             const modal = document.getElementById('youtubeModal');
             const youtubeGoBtn = document.getElementById('youtubeGoBtn');
             const youtubeSkipBtn = document.getElementById('youtubeSkipBtn');
+            const dictionaryContainer = document.getElementById('dictionaryContainer');
 
             let activeTagFilter = '';
 
@@ -371,7 +661,6 @@
             function showYouTubeModal(callback) {
                 modal.classList.add('active');
                 
-                // Обработчики (один раз)
                 const goHandler = function() {
                     modal.classList.remove('active');
                     window.open(YOUTUBE_URL, '_blank');
@@ -394,9 +683,7 @@
 
             // ---------- Скачивание ----------
             function downloadImage(url, filename) {
-                // Показываем модалку перед скачиванием
                 showYouTubeModal(function() {
-                    // После того как пользователь закрыл модалку — скачиваем
                     const link = document.createElement('a');
                     link.href = url;
                     link.download = filename || url.split('/').pop() || 'wallpaper.jpg';
@@ -406,7 +693,7 @@
                 });
             }
 
-            // ---------- Рендер ----------
+            // ---------- Рендер галереи ----------
             function render() {
                 const searchTerm = searchInput.value.toLowerCase().trim();
                 const tagFilter = activeTagFilter.toLowerCase();
@@ -436,7 +723,6 @@
                         const title = img.title || 'Без названия';
                         const fileName = img.url.split('/').pop() || 'image.jpg';
                         
-                        // Кнопка "Перейти" если есть link
                         let linkBtnHtml = '';
                         if (img.link) {
                             linkBtnHtml = `<a href="${escapeHtml(img.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-link">🔗 Перейти</a>`;
@@ -518,6 +804,41 @@
                 document.head.appendChild(script);
             }
 
+            // ---------- Рендер словаря ----------
+            function renderDictionary() {
+                if (!dictionaryContainer) return;
+                
+                if (dictionary.length === 0) {
+                    dictionaryContainer.innerHTML = `<div class="dict-empty">📭 Словарь пока пуст. Добавьте слова в массив <code>dictionary</code>.</div>`;
+                    return;
+                }
+
+                let html = '';
+                dictionary.forEach(item => {
+                    const emoji = item.emoji ? `<span class="dict-emoji">${escapeHtml(item.emoji)}</span>` : '';
+                    const originHtml = item.origin 
+                        ? `<div class="dict-origin">🔤 <span class="arrow">←</span> ${escapeHtml(item.origin)}</div>` 
+                        : '';
+                    const tagsHtml = item.tags && item.tags.length > 0
+                        ? item.tags.map(t => `<span class="dict-tag">${escapeHtml(t)}</span>`).join('')
+                        : '';
+                    const desc = item.desc || 'Описание пока не добавлено.';
+
+                    html += `
+                        <div class="dict-card">
+                            <div class="dict-word">
+                                ${emoji}
+                                ${escapeHtml(item.word || 'Без названия')}
+                            </div>
+                            ${originHtml}
+                            <div class="dict-desc">${escapeHtml(desc)}</div>
+                            ${tagsHtml ? `<div class="dict-tags">${tagsHtml}</div>` : ''}
+                        </div>
+                    `;
+                });
+                dictionaryContainer.innerHTML = html;
+            }
+
             // Поиск с debounce
             let searchTimeout;
             searchInput.addEventListener('input', function() {
@@ -527,7 +848,7 @@
                 }, 200);
             });
 
-            // Экспортируем функции в глобальный объект для onclick
+            // Экспорт для onclick
             window.__gallery = {
                 images: images,
                 render: render,
@@ -538,12 +859,14 @@
 
             // Инициализация
             render();
+            renderDictionary();
 
             if (images.length === 0) {
                 gallery.innerHTML = `<div class="empty-state">📭 Массив <code>wallpapers</code> пуст. Добавьте обои в коде.</div>`;
             }
 
             console.log('✅ Галерея обоев загружена. Изображений:', images.length);
+            console.log('📖 Словарь загружен. Слов:', dictionary.length);
         })();
     </script>
 </body>
