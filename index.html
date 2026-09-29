@@ -427,6 +427,102 @@
             letter-spacing: 1px;
         }
 
+        /* ===== Секция Генератор картинок ===== */
+        .generator-section {
+            background: linear-gradient(145deg, #fafbff, #f1f5f9);
+            border-radius: 32px;
+            padding: 32px;
+        }
+        .gen-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            align-items: stretch;
+        }
+        .gen-controls input[type="text"] {
+            flex: 1 1 260px;
+            padding: 14px 22px;
+            border-radius: 40px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .gen-controls input[type="text"]:focus {
+            outline: none;
+            border-color: #ec4899;
+            box-shadow: 0 0 0 3px rgba(236,72,153,0.15);
+        }
+        .gen-controls .btn-generate {
+            background: #ec4899;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gen-controls .btn-generate:hover {
+            background: #db2777;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(236,72,153,0.35);
+        }
+        .gen-controls .btn-download-gen {
+            background: #1e293b;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gen-controls .btn-download-gen:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+        }
+        .gen-preview-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a;
+            border-radius: 24px;
+            padding: 24px;
+            overflow: hidden;
+        }
+        .gen-preview-wrap canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: block;
+        }
+        .gen-hint {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            text-align: center;
+        }
+        .gen-error {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            min-height: 18px;
+        }
+
         /* Модальное окно для YouTube */
         .modal-overlay {
             display: none;
@@ -520,6 +616,10 @@
             .channel-btn { padding: 14px 32px; font-size: 0.95rem; }
             .channel-stats { gap: 20px; }
             .channel-stat .stat-num { font-size: 1.3rem; }
+            .gen-controls input[type="text"] { flex: 1 1 100%; }
+            .gen-controls .btn-generate,
+            .gen-controls .btn-download-gen { flex: 1 1 100%; justify-content: center; }
+            .generator-section { padding: 20px 16px; }
         }
     </style>
 </head>
@@ -582,6 +682,28 @@
         </div>
     </div>
 
+    <!-- ==================== ГЕНЕРАТОР КАРТИНОК ==================== -->
+    <div class="container" id="generatorSection">
+        <h2 class="section-title">
+            🎨 Генератор картинок
+            <span class="sub">— введи текст, получи картинку</span>
+        </h2>
+        <div class="generator-section">
+            <div class="gen-controls">
+                <input type="text" id="genTextInput" placeholder="Введи текст для картинки..." value="ТЕСТОВЫЙ ТЕКСТ" maxlength="40">
+                <button class="btn-generate" id="genBtn">✨ Сгенерировать</button>
+                <button class="btn-download-gen" id="genDownloadBtn">⬇ Скачать PNG</button>
+            </div>
+            <div class="gen-preview-wrap">
+                <canvas id="genCanvas" width="1920" height="1080"></canvas>
+            </div>
+            <div class="gen-error" id="genError"></div>
+            <div class="gen-hint">
+                💡 Совет: чем короче текст, тем крупнее он будет. Максимум 40 символов.
+            </div>
+        </div>
+    </div>
+
     <!-- ==================== СЛОВАРЬ ==================== -->
     <div class="container" id="dictionarySection">
         <h2 class="section-title">
@@ -637,7 +759,6 @@
                     desc: 'Человек, который апгрейдит всё вокруг, но с особым, неформальным подтекстом. Слово-гибрид, объединяющее технический термин и сленговое понятие. Используется как шутливое обозначение того, кто постоянно что-то улучшает, но не всегда удачно.',
                     tags: ['сленг', 'гибрид', 'тимофило']
                 },
-                // === Добавляйте новые слова сюда по образцу ===
             ];
 
             const YOUTUBE_URL = 'https://www.youtube.com/@Tim_Brayrot';
@@ -839,7 +960,143 @@
                 dictionaryContainer.innerHTML = html;
             }
 
-            // Поиск с debounce
+            // ---------- Генератор картинок ----------
+            const genCanvas = document.getElementById('genCanvas');
+            const genCtx = genCanvas.getContext('2d');
+            const genTextInput = document.getElementById('genTextInput');
+            const genBtn = document.getElementById('genBtn');
+            const genDownloadBtn = document.getElementById('genDownloadBtn');
+            const genError = document.getElementById('genError');
+
+            function drawGeneratedImage(text) {
+                const W = genCanvas.width;
+                const H = genCanvas.height;
+
+                // 1. Фон — чистый чёрный
+                genCtx.fillStyle = '#000000';
+                genCtx.fillRect(0, 0, W, H);
+
+                // 2. Рассчитываем размер шрифта в зависимости от длины текста
+                const len = text.length || 1;
+                // База: 220px для 1-2 символов, уменьшается с ростом длины
+                let fontSize = Math.min(240, Math.max(70, Math.floor(1400 / Math.sqrt(len))));
+                // Дополнительное ограничение, чтобы не вылезало за пределы
+                while (fontSize > 40) {
+                    genCtx.font = `900 ${fontSize}px "Arial Black", Impact, system-ui, sans-serif`;
+                    const metrics = genCtx.measureText(text);
+                    const textWidth = metrics.width;
+                    // Плашка должна занимать не более 80% ширины
+                    if (textWidth <= W * 0.8) break;
+                    fontSize -= 4;
+                }
+
+                // 3. Настраиваем шрифт
+                genCtx.font = `900 ${fontSize}px "Arial Black", Impact, system-ui, sans-serif`;
+                genCtx.textAlign = 'center';
+                genCtx.textBaseline = 'middle';
+
+                const metrics = genCtx.measureText(text);
+                const textWidth = metrics.width;
+                const textHeight = fontSize;
+
+                // 4. Размеры плашки
+                const padX = Math.max(60, fontSize * 0.7);
+                const padY = Math.max(30, fontSize * 0.4);
+                const rectW = textWidth + padX * 2;
+                const rectH = textHeight + padY * 2;
+                const rectX = (W - rectW) / 2;
+                const rectY = (H - rectH) / 2;
+                const radius = Math.min(rectH / 2, 60);
+
+                // 5. Свечение (glow) — рисуем несколько размытых плашек
+                genCtx.save();
+                genCtx.shadowColor = '#ff00a8';
+                genCtx.shadowBlur = 80;
+                genCtx.fillStyle = '#ff00a8';
+                roundRect(genCtx, rectX, rectY, rectW, rectH, radius);
+                genCtx.fill();
+                genCtx.shadowBlur = 120;
+                roundRect(genCtx, rectX, rectY, rectW, rectH, radius);
+                genCtx.fill();
+                genCtx.restore();
+
+                // 6. Основная розовая плашка
+                genCtx.fillStyle = '#ff00a8';
+                roundRect(genCtx, rectX, rectY, rectW, rectH, radius);
+                genCtx.fill();
+
+                // 7. Белый текст (с жирным начертанием)
+                genCtx.fillStyle = '#ffffff';
+                genCtx.font = `900 ${fontSize}px "Arial Black", Impact, system-ui, sans-serif`;
+                genCtx.fillText(text, W / 2, H / 2 + fontSize * 0.05);
+
+                // 8. Лёгкая обводка текста для чёткости
+                genCtx.lineWidth = Math.max(2, fontSize * 0.02);
+                genCtx.strokeStyle = 'rgba(255,255,255,0.15)';
+                genCtx.strokeText(text, W / 2, H / 2 + fontSize * 0.05);
+            }
+
+            // Утилита: скруглённый прямоугольник
+            function roundRect(ctx, x, y, w, h, r) {
+                if (w < 2 * r) r = w / 2;
+                if (h < 2 * r) r = h / 2;
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.arcTo(x + w, y, x + w, y + h, r);
+                ctx.arcTo(x + w, y + h, x, y + h, r);
+                ctx.arcTo(x, y + h, x, y, r);
+                ctx.arcTo(x, y, x + w, y, r);
+                ctx.closePath();
+            }
+
+            function generateImage() {
+                const raw = genTextInput.value;
+                const text = (raw || 'ТЕСТОВЫЙ ТЕКСТ').trim();
+                
+                if (!text) {
+                    genError.textContent = '⚠️ Введи текст для картинки';
+                    return;
+                }
+                if (text.length > 40) {
+                    genError.textContent = '⚠️ Максимум 40 символов';
+                    return;
+                }
+                genError.textContent = '';
+                drawGeneratedImage(text);
+            }
+
+            function downloadGenerated() {
+                const raw = genTextInput.value;
+                const text = (raw || 'ТЕСТОВЫЙ ТЕКСТ').trim();
+                if (!text) {
+                    genError.textContent = '⚠️ Сначала введи текст';
+                    return;
+                }
+                // Скачиваем через модалку с YouTube
+                showYouTubeModal(function() {
+                    const dataUrl = genCanvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = 'картинка_' + text.replace(/[^a-zA-Zа-яА-Я0-9]/g, '_').slice(0, 30) + '.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+
+            // Слушатели генератора
+            genBtn.addEventListener('click', generateImage);
+            genTextInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') generateImage();
+            });
+            genTextInput.addEventListener('input', function() {
+                // Автогенерация с debounce
+                clearTimeout(window.__genTimeout);
+                window.__genTimeout = setTimeout(generateImage, 300);
+            });
+            genDownloadBtn.addEventListener('click', downloadGenerated);
+
+            // ---------- Поиск с debounce ----------
             let searchTimeout;
             searchInput.addEventListener('input', function() {
                 clearTimeout(searchTimeout);
@@ -860,6 +1117,7 @@
             // Инициализация
             render();
             renderDictionary();
+            generateImage(); // рисуем стартовую картинку
 
             if (images.length === 0) {
                 gallery.innerHTML = `<div class="empty-state">📭 Массив <code>wallpapers</code> пуст. Добавьте обои в коде.</div>`;
@@ -867,6 +1125,7 @@
 
             console.log('✅ Галерея обоев загружена. Изображений:', images.length);
             console.log('📖 Словарь загружен. Слов:', dictionary.length);
+            console.log('🎨 Генератор картинок готов.');
         })();
     </script>
 </body>
