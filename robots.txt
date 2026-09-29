@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /oboi/*.tmp
+
+Sitemap: https://timbrayrot.github.io/oboidownload/sitemap.xml
