@@ -135,6 +135,9 @@
             --accent-3: #06b6d4;
             --youtube: #ff0033;
             --discord: #5865f2;
+            --danger: #ef4444;
+            --warn: #f59e0b;
+            --success: #22c55e;
         }
         html { scroll-behavior: smooth; }
         body {
@@ -783,6 +786,227 @@
             box-shadow: 0 20px 44px -8px rgba(255,0,51,0.8);
         }
 
+        /* Дно-счётчик */
+        .bottom-counter {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .counter-card {
+            background: linear-gradient(145deg, rgba(239,68,68,0.08), rgba(239,68,68,0.02));
+            border: 1px solid rgba(239,68,68,0.25);
+            border-radius: 20px;
+            padding: 26px 22px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(239,68,68,0.1) 0%, transparent 60%);
+            animation: rotateGlow 8s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .counter-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(239,68,68,0.5);
+            box-shadow: 0 20px 40px -16px rgba(239,68,68,0.4);
+        }
+        .counter-card > * { position: relative; z-index: 1; }
+        .counter-icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .counter-num {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--danger);
+            display: block;
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 0 0 30px rgba(239,68,68,0.5);
+        }
+        .counter-label {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+        }
+
+        /* Хроника диссов */
+        .chronicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .chronicle-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px 22px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .chronicle-card:hover {
+            transform: translateX(6px);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(236,72,153,0.35);
+        }
+        .chronicle-status {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .chronicle-status.done { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); }
+        .chronicle-status.progress { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); }
+        .chronicle-status.queue { background: rgba(148,163,184,0.15); border: 1px solid rgba(148,163,184,0.4); }
+        .chronicle-info { flex: 1; min-width: 0; }
+        .chronicle-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .chronicle-meta {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            font-weight: 600;
+        }
+
+        /* Топ-панчи */
+        .punch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .punch-card {
+            background: linear-gradient(135deg, rgba(236,72,153,0.08), rgba(139,92,246,0.06));
+            border: 1px solid rgba(236,72,153,0.25);
+            border-radius: 20px;
+            padding: 22px 24px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .punch-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(236,72,153,0.5);
+            box-shadow: 0 20px 40px -16px rgba(236,72,153,0.5);
+        }
+        .punch-rank {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .punch-text {
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+        .punch-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-3);
+            font-weight: 600;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255,255,255,0.08);
+        }
+        .punch-likes {
+            color: var(--danger);
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Отмены */
+        .cancel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+        .cancel-card {
+            background: linear-gradient(135deg, rgba(239,68,68,0.06), rgba(0,0,0,0.1));
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 18px;
+            padding: 20px 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .cancel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--danger), transparent);
+        }
+        .cancel-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(239,68,68,0.6);
+            box-shadow: 0 20px 40px -16px rgba(239,68,68,0.4);
+        }
+        .cancel-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+            text-decoration: line-through;
+            text-decoration-color: var(--danger);
+            text-decoration-thickness: 2px;
+        }
+        .cancel-role {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .cancel-badge {
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.5);
+            color: var(--danger);
+            border-radius: 30px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
         /* Генератор */
         .generator-section {
             background: rgba(255,255,255,0.02);
@@ -1140,7 +1364,7 @@
             h1 { font-size: 1.5rem; gap: 10px; }
             h2.section-title { font-size: 1.25rem; }
             .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-            .dict-grid, .diss-grid { grid-template-columns: 1fr; }
+            .dict-grid, .diss-grid, .quotes-grid, .chronicle-grid, .punch-grid, .cancel-grid { grid-template-columns: 1fr; }
             .channel-section { padding: 36px 20px; border-radius: 22px; }
             .channel-title { font-size: 1.6rem; }
             .channel-btn { padding: 14px 28px; font-size: 0.9rem; }
@@ -1153,7 +1377,6 @@
             .meme-gif-wrap { max-width: 100%; }
             .modal { padding: 32px 24px; }
             .modal-actions .btn { flex: 1 1 100%; }
-            /* Таймлайн на мобильных - вертикальный */
             .timeline::before { left: 20px; }
             .timeline-item,
             .timeline-item:nth-child(odd),
@@ -1163,6 +1386,7 @@
             }
             .timeline-content { width: 100%; }
             .timeline-dot { left: 20px; }
+            .bottom-counter { grid-template-columns: 1fr; }
         }
 
         /* Скроллбар */
@@ -1268,9 +1492,9 @@
                         <span class="stat-label">Просмотров</span>
                     </div>
                     <div class="channel-stat">
-                        <span class="stat-icon">📅</span>
-                        <span class="stat-num">2021</span>
-                        <span class="stat-label">Год регистрации</span>
+                        <span class="stat-icon">🎤</span>
+                        <span class="stat-num">47</span>
+                        <span class="stat-label">Диссов</span>
                     </div>
                 </div>
             </div>
@@ -1281,7 +1505,7 @@
     <div class="container" id="dissSection">
         <h2 class="section-title">
             🎤 Топ-10 диссов
-            <span class="sub">— самые популярные</span>
+            <span class="sub">— по просмотрам</span>
         </h2>
         <div class="diss-grid" id="dissGrid"></div>
         <div class="watch-all-wrap">
@@ -1289,6 +1513,63 @@
                 <span>▶️</span> Смотреть все диссы на канале
             </a>
         </div>
+    </div>
+
+    <!-- ==================== ДНО-СЧЁТЧИК ==================== -->
+    <div class="container" id="bottomCounterSection">
+        <h2 class="section-title">
+            📉 Дно-счётчик
+            <span class="sub">— статистика замеров</span>
+        </h2>
+        <div class="bottom-counter">
+            <div class="counter-card">
+                <span class="counter-icon">🎤</span>
+                <span class="counter-num">47</span>
+                <span class="counter-label">Диссов выпущено</span>
+            </div>
+            <div class="counter-card">
+                <span class="counter-icon">👁️</span>
+                <span class="counter-num">2 507</span>
+                <span class="counter-label">Всего просмотров</span>
+            </div>
+            <div class="counter-card">
+                <span class="counter-icon">🔥</span>
+                <span class="counter-num">287</span>
+                <span class="counter-label">Топ-просмотр (Римка)</span>
+            </div>
+            <div class="counter-card">
+                <span class="counter-icon">🏆</span>
+                <span class="counter-num">10.3x</span>
+                <span class="counter-label">Максимальный буст</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ХРОНИКА ДИССОВ ==================== -->
+    <div class="container" id="chronicleSection">
+        <h2 class="section-title">
+            📊 Хроника диссов
+            <span class="sub">— на кого писал и что вышло</span>
+        </h2>
+        <div class="chronicle-grid" id="chronicleGrid"></div>
+    </div>
+
+    <!-- ==================== ТОП-ПАНЧИ ==================== -->
+    <div class="container" id="punchSection">
+        <h2 class="section-title">
+            🏆 Топ-панчи
+            <span class="sub">— самые цитируемые фразы</span>
+        </h2>
+        <div class="punch-grid" id="punchGrid"></div>
+    </div>
+
+    <!-- ==================== ОТМЕНЫ ==================== -->
+    <div class="container" id="cancelSection">
+        <h2 class="section-title">
+            🚫 Отмены
+            <span class="sub">— каналы, которые отменены</span>
+        </h2>
+        <div class="cancel-grid" id="cancelGrid"></div>
     </div>
 
     <!-- ==================== ТАЙМЛАЙН ==================== -->
@@ -1579,22 +1860,163 @@
                     desc: 'Человек, который апгрейдит всё вокруг, но с особым, неформальным подтекстом. Слово-гибрид, объединяющее технический термин и сленговое понятие.',
                     tags: ['сленг', 'гибрид', 'тимофило']
                 },
+                {
+                    word: 'Дно',
+                    emoji: '💀',
+                    origin: 'Авторский термин Тимофило',
+                    desc: 'Канал, видео или контент с минимальным количеством просмотров (обычно 3–15). Используется как жёсткая характеристика слабого контента. Ключевое слово всего словаря диссера.',
+                    tags: ['сленг', 'оценка', 'тимофило']
+                },
+                {
+                    word: 'Мусордроп',
+                    emoji: '🗑️',
+                    origin: 'Мусор + дроп',
+                    desc: 'Плохой, бессмысленный контент, который не несёт никакой ценности. Часто используется в сравнениях: «Мусордроп бы и то больше собрал».',
+                    tags: ['сленг', 'контент', 'тимофило']
+                },
+                {
+                    word: 'Паразит',
+                    emoji: '🦠',
+                    origin: 'Авторский термин Тимофило',
+                    desc: 'Тот, кто живёт на чужом имени, использует чужие темы и идеи, не создавая своего. Часто применяется к каналам, которые строят контент на упоминании более популярных блогеров.',
+                    tags: ['сленг', 'оценка', 'тимофило']
+                },
+                {
+                    word: 'Пустота',
+                    emoji: '🕳️',
+                    origin: 'Авторский концепт Тимофило',
+                    desc: 'Состояние канала-жертвы, лишённого смысла и аудитории. Философское понятие вселенной диссера: всё, что не имеет души, — пустота.',
+                    tags: ['концепт', 'философия', 'тимофило']
+                },
             ];
 
             // ==============================================================
-            // ★★★ ТОП-10 ДИССОВ ★★★
+            // ★★★ ТОП-10 ДИССОВ (по просмотрам) ★★★
             // ==============================================================
             const topDisses = [
-                { rank: 1, title: 'Дисс на Zucks — КОРОЛЬ КРЫС ROYAL MINE', author: '@Zucks', views: '105', videoId: '65y0_QnLTiE' },
-                { rank: 2, title: 'Дисс на FIREFOX — КОРОЛЬ ПУСТЫХ Реакций', author: '@FIREMAN_Official', views: '64', videoId: 'G7_saMyaqQs' },
-                { rank: 3, title: 'Дисс на Юни — ПРИНЦЕССА ПИКСЕЛЬНОГО АВАТАРА', author: '@Юни', views: '23', videoId: 'javsLwXXXtY' },
-                { rank: 4, title: 'Дисс на Русский язык — ТЫ СЛИШКОМ СЛОЖНЫЙ', author: '@Tim_Brayrot', views: '22', videoId: 'YCis18cxQcE' },
-                { rank: 5, title: 'Дисс на МУХУ — КОРОЛЬ НУЛЕВЫХ РАЗОБЛАЧЕНИЙ', author: '@Муха', views: '30', videoId: 'WUn-byvsiJI' },
-                { rank: 6, title: 'Дисс на МИТУ — КОРОЛЕВА ОБМАНА', author: '@MiSide', views: '20', videoId: 'U9CvK-SA6v4' },
-                { rank: 7, title: 'Дисс на RIMK — ФАБРИКА ПУСТОТЫ', author: '@RIMK_ON', views: '17', videoId: 'aoxWj7spWog' },
-                { rank: 8, title: 'Дисс на ЯЙЦО — Почему оно символ лжи?', author: '@Tim_Brayrot', views: '41', videoId: '6EeIQkDSjR0' },
-                { rank: 9, title: 'Дисс на DISCORD — ПЛАТФОРМА ПУСТОТЫ', author: '@Tim_Brayrot', views: '19', videoId: '10FyGjA4TVA' },
-                { rank: 10, title: 'Дисс на АВЕСА — КОРОЛЯ БЕСКОНЕЧНЫХ СЕРИЙ', author: '@Aves', views: '59', videoId: 'NEQex4tlwrs' },
+                { rank: 1, title: 'Дисс на Римку — ФАБРИКА ПУСТОТЫ (+66 сквад)', author: '@Rimk_ON', views: '287', videoId: 'aoxWj7spWog' },
+                { rank: 2, title: 'Заставка Канала Бомбардило Тимофило — Это Дисс Канал', author: '@Tim_Brayrot', views: '190', videoId: 'B4MgtH-X760' },
+                { rank: 3, title: 'Дисс на Короля ПУСТЫХ Вопросов — Игорь ЛАВОМЕР', author: '@igorlavomer', views: '133', videoId: 'mOYoCnzt_r8' },
+                { rank: 4, title: 'Дисс на Toxinator — ГЛАВНЫЙ ТОКСИК РАЙОНА', author: '@RAdiOlogicaL1233', views: '117', videoId: 'jWUlzclQ2yg' },
+                { rank: 5, title: 'Дисс на Zucks — КОРОЛЬ КРЫС ROYAL MINE', author: '@Zucks', views: '105', videoId: '65y0_QnLTiE' },
+                { rank: 6, title: 'Дисс на Арчи Плей — ЛЖЕЦ С МАНЕРАМИ + FIREFOX', author: '@ArchiePlayYT', views: '97', videoId: 'VZ-DTygw7i4' },
+                { rank: 7, title: 'Дисс на VINTI FROMON — Главного ОБЕЩАЛЬЩИКА района', author: '@Vinti_Fromon', views: '92', videoId: 'POymTQqTNzU' },
+                { rank: 8, title: 'Дисс на Миту — КОРОЛЕВА ОБМАНА (MiSide Diss)', author: '@MiSide', views: '76', videoId: 'U9CvK-SA6v4' },
+                { rank: 9, title: 'Дисс на КОРОЛЯ ОБЕЩАНИЙ — Тимошка из Москвы!', author: '@Timosha_MoscowOF', views: '70', videoId: 'TeY1zJNONE0' },
+                { rank: 10, title: 'Дисс на Битлвинда — КОРОЛЯ ПУСТЫХ ФАКТОВ', author: '@beatlewind', views: '65', videoId: 'uvW-Ooyx-A0' },
+            ];
+
+            // ==============================================================
+            // ★★★ ЦИТАТЫ ТИМОФИЛО ★★★
+            // ==============================================================
+            const quotes = [
+                { text: 'Ты продался за 15%, а теперь благодаришь. Дно.', date: '17 сентября' },
+                { text: 'Перенёс сознание мухи в паука, а своё сознание потерял ещё в 2024.', date: '17 сентября' },
+                { text: 'Ты не блогер, ты рекламный щит.', date: '12 сентября' },
+                { text: 'Чёрный пиар тоже пиар.', date: '3 августа' },
+                { text: 'Кот тащит, а ты — нет.', date: '11 сентября' },
+                { text: 'Не надо меня с пятном сравнивать, я не нахожусь снизу видоса.', date: '17 августа' },
+                { text: 'А я неверифицированный — и вот он я. Миф разрушен.', date: '13 августа' },
+                { text: '118 просмотров. Дно.', date: '18 сентября' },
+                { text: '3 просмотра, а прошло целых 120 СЕКУНД. Скатились.', date: '24 сентября' },
+                { text: 'Легендарный режим? Легендарный провал.', date: '30 августа' },
+                { text: 'Добавь меня в коллаб. Я принесу тебе просмотры.', date: '19 августа' },
+                { text: 'Спидран на вощёный повреждённый резной медный блок — а просмотров как на обычный блок.', date: '16 августа' },
+            ];
+
+            // ==============================================================
+            // ★★★ ХРОНИКА ДИССОВ (47 штук — все done) ★★★
+            // ==============================================================
+            const chronicle = [
+                { name: 'Zucks', role: 'Король Крыс Royal Mine', status: 'done' },
+                { name: 'FIREFOX', role: 'Король Пустых Реакций', status: 'done' },
+                { name: 'Юни', role: 'Принцесса Пиксельного Аватара', status: 'done' },
+                { name: 'Муха', role: 'Король Нулевых Разоблачений', status: 'done' },
+                { name: 'Мита', role: 'Королева Обмана (MiSide)', status: 'done' },
+                { name: 'Римка', role: 'Фабрика Пустоты (+66 сквад)', status: 'done' },
+                { name: 'ЯЙЦО', role: 'Символ Лжи', status: 'done' },
+                { name: 'DISCORD', role: 'Платформа Пустоты', status: 'done' },
+                { name: 'АВЕС', role: 'Король Бесконечных Серий', status: 'done' },
+                { name: 'Бискас', role: 'Король Пустых Клипов', status: 'done' },
+                { name: 'Faer TV', role: 'Король Пустых Хорроров', status: 'done' },
+                { name: 'Игорь Лавомер', role: 'Король Пустых Вопросов', status: 'done' },
+                { name: 'Timosha_MoscowOF', role: 'Призрак Популярности', status: 'done' },
+                { name: 'SertTopik', role: 'Король Однообразия', status: 'done' },
+                { name: 'Dr. Morkovtsev', role: 'Теневой Король', status: 'done' },
+                { name: 'TStudios', role: 'Тёмный Продюсер', status: 'done' },
+                { name: 'Vinti Fromon', role: 'Главный Обещальщик района', status: 'done' },
+                { name: 'YATAVO', role: 'Молчаливая Картошка', status: 'done' },
+                { name: 'Дашка Принцесска', role: 'Постоянный Гость Тимошки', status: 'done' },
+                { name: 'Beatlewind', role: 'Король Пустых Фактов', status: 'done' },
+                { name: 'Русский язык', role: 'Ты слишком сложный', status: 'done' },
+                { name: 'ЧИСЛА', role: 'Кроме СИКС СЕВЕН (67)', status: 'done' },
+                { name: 'Toxinator', role: 'Главный Токсик Района', status: 'done' },
+                { name: 'Арчи Плей', role: 'Лжец с Манерами + FIREFOX', status: 'done' },
+                { name: 'Аластор', role: '[18+] Верная Собачка', status: 'done' },
+                { name: 'Скретч', role: 'Любитель Сикс Севен', status: 'done' },
+                { name: 'Райм', role: 'Король Троллинга', status: 'done' },
+                { name: 'Фласка', role: 'Королева Кринжа', status: 'done' },
+                { name: 'Алёнка', role: 'Принцесса Нейросети', status: 'done' },
+                { name: 'MrRostih', role: 'Бедварс-Блогер без Бедварс', status: 'done' },
+                { name: 'YARD', role: 'Король Рекламы', status: 'done' },
+                { name: 'Морфикс', role: 'Предатель', status: 'done' },
+                { name: 'Главнокомандующий', role: 'Генерал Пустых Обзоров', status: 'done' },
+                { name: 'Тимоша Музыка', role: 'Реакционер', status: 'done' },
+                { name: 'Четыре Стихии', role: 'Почему вы не тянете', status: 'done' },
+                { name: 'Команда Флоры', role: 'Паразиты Природы', status: 'done' },
+                { name: 'Пустота', role: 'Она не сможет ответить', status: 'done' },
+                { name: 'BeatleWind', role: 'Самый стыдный клоун Ютуба', status: 'done' },
+                { name: 'Дашка + Ростик', role: 'Лаборатория Любви (Шип-трек)', status: 'done' },
+                { name: 'Тимошка из Москвы (v2.0)', role: 'Призрак Популярности', status: 'done' },
+                { name: 'HELL', role: 'Хоррор-релиз', status: 'done' },
+                { name: '😈🥚67🔥', role: 'Символ-релиз', status: 'done' },
+                { name: 'Demon Egg Sixty Seven', role: 'Bombardillo OST', status: 'done' },
+                { name: 'Тим и Ростик', role: 'Релиз ПЕРВОЙ Песни', status: 'done' },
+                { name: 'Баллада о Мироходце', role: 'Лололошка и Фиксплей (НЕ Дисс)', status: 'done' },
+                { name: 'Вспомнить всё', role: 'Эпилог для пустоты', status: 'done' },
+                { name: 'Ваш Единственный Друг', role: 'Самый Токсичный Манипулятор', status: 'done' },
+            ];
+
+            // ==============================================================
+            // ★★★ ТОП-ПАНЧИ ★★★
+            // ==============================================================
+            const punches = [
+                { rank: 1, text: '3 просмотра, а прошло целых 120 СЕКУНД. Скатились.', likes: 127, date: '24 сентября' },
+                { rank: 2, text: 'Ты продался за 15%, а теперь благодаришь. Дно.', likes: 98, date: '17 сентября' },
+                { rank: 3, text: 'Кот тащит, а ты — нет.', likes: 84, date: '11 сентября' },
+                { rank: 4, text: 'Чёрный пиар тоже пиар.', likes: 76, date: '3 августа' },
+                { rank: 5, text: 'Ты не блогер, ты рекламный щит.', likes: 68, date: '12 сентября' },
+                { rank: 6, text: 'Перенёс сознание мухи в паука, а своё сознание потерял ещё в 2024.', likes: 61, date: '17 сентября' },
+                { rank: 7, text: 'А я неверифицированный — и вот он я. Миф разрушен.', likes: 54, date: '13 августа' },
+                { rank: 8, text: 'Добавь меня в коллаб. Я принесу тебе просмотры.', likes: 47, date: '19 августа' },
+                { rank: 9, text: 'Легендарный режим? Легендарный провал.', likes: 42, date: '30 августа' },
+                { rank: 10, text: 'Не надо меня с пятном сравнивать, я не нахожусь снизу видоса.', likes: 38, date: '17 августа' },
+            ];
+
+            // ==============================================================
+            // ★★★ ОТМЕНЫ ★★★
+            // ==============================================================
+            const cancelled = [
+                { name: 'Zucks', role: 'Король Крыс' },
+                { name: 'FIREFOX', role: 'Король Пустых Реакций' },
+                { name: 'Римка', role: 'Фабрика Пустоты' },
+                { name: 'Юни', role: 'Принцесса Пиксельного Аватара' },
+                { name: 'Игорь Лавомер', role: 'Король Пустых Вопросов' },
+                { name: 'Toxinator', role: 'Главный Токсик Района' },
+                { name: 'Арчи Плей', role: 'Лжец с Манерами' },
+                { name: 'Мита', role: 'Королева Обмана' },
+                { name: 'Тимошка из Москвы', role: 'Призрак Популярности' },
+                { name: 'Муха', role: 'Король Нулевых Разоблачений' },
+                { name: 'Vinti Fromon', role: 'Главный Обещальщик' },
+                { name: 'Beatlewind', role: 'Король Пустых Фактов' },
+                { name: 'ЯЙЦО', role: 'Символ Лжи' },
+                { name: 'DISCORD', role: 'Платформа Пустоты' },
+                { name: 'АВЕС', role: 'Король Бесконечных Серий' },
+                { name: 'Faer TV', role: 'Король Пустых Хорроров' },
+                { name: 'SertTopik', role: 'Король Однообразия' },
+                { name: 'Dr. Morkovtsev', role: 'Теневой Король' },
+                { name: 'Аластор', role: '[18+] Верная Собачка' },
+                { name: 'Ваш Единственный Друг', role: 'Самый Токсичный Манипулятор' },
             ];
 
             const YOUTUBE_URL = 'https://www.youtube.com/@Tim_Brayrot';
@@ -1612,6 +2034,9 @@
             const youtubeSkipBtn = document.getElementById('youtubeSkipBtn');
             const dictionaryContainer = document.getElementById('dictionaryContainer');
             const dissGrid = document.getElementById('dissGrid');
+            const chronicleGrid = document.getElementById('chronicleGrid');
+            const punchGrid = document.getElementById('punchGrid');
+            const cancelGrid = document.getElementById('cancelGrid');
 
             let activeTagFilter = '';
 
@@ -1708,8 +2133,12 @@
                 if (!dissGrid) return;
                 let html = '';
                 topDisses.forEach(d => {
-                    const thumbUrl = `https://i.ytimg.com/vi/${d.videoId}/hqdefault.jpg`;
-                    const videoUrl = `https://www.youtube.com/watch?v=${d.videoId}`;
+                    // Если videoId не является реальным (SSYLKA), используем заглушку
+                    const isReal = d.videoId && d.videoId.length === 11 && !d.videoId.startsWith('SSYLKA');
+                    const thumbUrl = isReal 
+                        ? `https://i.ytimg.com/vi/${d.videoId}/hqdefault.jpg`
+                        : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180"><rect fill="%231a1a26" width="320" height="180"/><text x="160" y="95" text-anchor="middle" fill="%2364748b" font-family="sans-serif" font-size="14">Загрузка...</text></svg>';
+                    const videoUrl = isReal ? `https://www.youtube.com/watch?v=${d.videoId}` : YOUTUBE_URL;
                     html += `
                         <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="diss-card" title="${escapeHtml(d.title)}">
                             <div class="diss-thumb-wrap">
@@ -1725,6 +2154,62 @@
                     `;
                 });
                 dissGrid.innerHTML = html;
+            }
+
+            function renderChronicle() {
+                if (!chronicleGrid) return;
+                const statusMap = {
+                    done: { icon: '✅', cls: 'done', label: 'Отдиссил' },
+                    progress: { icon: '⏳', cls: 'progress', label: 'В работе' },
+                    queue: { icon: '🕐', cls: 'queue', label: 'В очереди' }
+                };
+                let html = '';
+                chronicle.forEach(c => {
+                    const s = statusMap[c.status] || statusMap.queue;
+                    html += `
+                        <div class="chronicle-card">
+                            <div class="chronicle-status ${s.cls}">${s.icon}</div>
+                            <div class="chronicle-info">
+                                <div class="chronicle-name">${escapeHtml(c.name)}</div>
+                                <div class="chronicle-meta">${escapeHtml(c.role)} · ${s.label}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                chronicleGrid.innerHTML = html;
+            }
+
+            function renderPunches() {
+                if (!punchGrid) return;
+                let html = '';
+                punches.forEach(p => {
+                    html += `
+                        <div class="punch-card">
+                            <span class="punch-rank">#${p.rank}</span>
+                            <div class="punch-text">«${escapeHtml(p.text)}»</div>
+                            <div class="punch-footer">
+                                <span>📅 ${escapeHtml(p.date)}</span>
+                                <span class="punch-likes">❤️ ${p.likes}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                punchGrid.innerHTML = html;
+            }
+
+            function renderCancels() {
+                if (!cancelGrid) return;
+                let html = '';
+                cancelled.forEach(c => {
+                    html += `
+                        <div class="cancel-card">
+                            <div class="cancel-name">${escapeHtml(c.name)}</div>
+                            <div class="cancel-role">${escapeHtml(c.role)}</div>
+                            <span class="cancel-badge">🚫 ОТМЕНЁН</span>
+                        </div>
+                    `;
+                });
+                cancelGrid.innerHTML = html;
             }
 
             function escapeHtml(text) {
@@ -2589,6 +3074,9 @@
             render();
             renderDictionary();
             renderDisses();
+            renderChronicle();
+            renderPunches();
+            renderCancels();
             generateImage();
 
             console.log('✅ Галерея обоев загружена. Изображений:', images.length);
@@ -2597,6 +3085,9 @@
             console.log('📊 Статистика канала: 43 подписчика, 56 видео, 8 409 просмотров');
             console.log('🎤 Топ-10 диссов загружено');
             console.log('📅 Таймлайн: 2021 → весна 2026 → лето 2026');
+            console.log('📊 Хроника:', chronicle.length);
+            console.log('🏆 Панчи:', punches.length);
+            console.log('🚫 Отмены:', cancelled.length);
         })();
     </script>
 </body>
