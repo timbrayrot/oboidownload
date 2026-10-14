@@ -1465,93 +1465,8 @@
                         <span>💬</span> Discord
                     </a>
                 </div>
-
-                <div class="player-wrap">
-                    <iframe id="ytPlayer"
-                        src="https://www.youtube.com/embed?listType=user_uploads&list=Tim_Brayrot&rel=0"
-                        title="Последнее видео с канала Бомбардило Тимофило — мемные треки и диссы"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
-                <div class="player-label">▲ Последнее видео с канала</div>
-
-                <div class="channel-stats">
-                    <div class="channel-stat">
-                        <span class="stat-icon">👥</span>
-                        <span class="stat-num">43</span>
-                        <span class="stat-label">Подписчика</span>
-                    </div>
-                    <div class="channel-stat">
-                        <span class="stat-icon">🎬</span>
-                        <span class="stat-num">56</span>
-                        <span class="stat-label">Видео</span>
-                    </div>
-                    <div class="channel-stat">
-                        <span class="stat-icon">👁️</span>
-                        <span class="stat-num">8 409</span>
-                        <span class="stat-label">Просмотров</span>
-                    </div>
-                    <div class="channel-stat">
-                        <span class="stat-icon">🎤</span>
-                        <span class="stat-num">47</span>
-                        <span class="stat-label">Диссов</span>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-
-    <!-- ==================== ТОП-10 ДИССОВ ==================== -->
-    <div class="container" id="dissSection">
-        <h2 class="section-title">
-            🎤 Топ-10 диссов
-            <span class="sub">— по просмотрам</span>
-        </h2>
-        <div class="diss-grid" id="dissGrid"></div>
-        <div class="watch-all-wrap">
-            <a href="https://www.youtube.com/@Tim_Brayrot/videos" target="_blank" rel="noopener noreferrer" class="watch-all-btn">
-                <span>▶️</span> Смотреть все диссы на канале
-            </a>
-        </div>
-    </div>
-
-    <!-- ==================== ДНО-СЧЁТЧИК ==================== -->
-    <div class="container" id="bottomCounterSection">
-        <h2 class="section-title">
-            📉 Дно-счётчик
-            <span class="sub">— статистика замеров</span>
-        </h2>
-        <div class="bottom-counter">
-            <div class="counter-card">
-                <span class="counter-icon">🎤</span>
-                <span class="counter-num">47</span>
-                <span class="counter-label">Диссов выпущено</span>
-            </div>
-            <div class="counter-card">
-                <span class="counter-icon">👁️</span>
-                <span class="counter-num">2 507</span>
-                <span class="counter-label">Всего просмотров</span>
-            </div>
-            <div class="counter-card">
-                <span class="counter-icon">🔥</span>
-                <span class="counter-num">287</span>
-                <span class="counter-label">Топ-просмотр (Римка)</span>
-            </div>
-            <div class="counter-card">
-                <span class="counter-icon">🏆</span>
-                <span class="counter-num">10.3x</span>
-                <span class="counter-label">Максимальный буст</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== ХРОНИКА ДИССОВ ==================== -->
-    <div class="container" id="chronicleSection">
-        <h2 class="section-title">
-            📊 Хроника диссов
-            <span class="sub">— на кого писал и что вышло</span>
-        </h2>
-        <div class="chronicle-grid" id="chronicleGrid"></div>
     </div>
 
     <!-- ==================== ТОП-ПАНЧИ ==================== -->
@@ -1571,7 +1486,7 @@
         </h2>
         <div class="cancel-grid" id="cancelGrid"></div>
     </div>
-
+ 
     <!-- ==================== ТАЙМЛАЙН ==================== -->
     <div class="container" id="timelineSection">
         <h2 class="section-title">
@@ -1857,14 +1772,14 @@
                     word: 'Апрегейдер',
                     emoji: '💥',
                     origin: 'Апгрейдер (Upgrader) + Гей',
-                    desc: 'Человек, который апгрейдит всё вокруг, но с особым, неформальным подтекстом. Слово-гибрид, объединяющее технический термин и сленговое понятие.',
+                    desc: 'Человек, который апгрейдит всё вокруг, но избегая девушек. Только с парнями.',
                     tags: ['сленг', 'гибрид', 'тимофило']
                 },
                 {
                     word: 'Дно',
                     emoji: '💀',
                     origin: 'Авторский термин Тимофило',
-                    desc: 'Канал, видео или контент с минимальным количеством просмотров (обычно 3–15). Используется как жёсткая характеристика слабого контента. Ключевое слово всего словаря диссера.',
+                    desc: 'Канал, видео или контент с минимальным количеством просмотров. Используется как жёсткая характеристика слабого контента. Ключевое слово всего словаря диссера.',
                     tags: ['сленг', 'оценка', 'тимофило']
                 },
                 {
@@ -1891,22 +1806,6 @@
             ];
 
             // ==============================================================
-            // ★★★ ТОП-10 ДИССОВ (по просмотрам) ★★★
-            // ==============================================================
-            const topDisses = [
-                { rank: 1, title: 'Дисс на Римку — ФАБРИКА ПУСТОТЫ (+66 сквад)', author: '@Rimk_ON', views: '287', videoId: 'aoxWj7spWog' },
-                { rank: 2, title: 'Заставка Канала Бомбардило Тимофило — Это Дисс Канал', author: '@Tim_Brayrot', views: '190', videoId: 'B4MgtH-X760' },
-                { rank: 3, title: 'Дисс на Короля ПУСТЫХ Вопросов — Игорь ЛАВОМЕР', author: '@igorlavomer', views: '133', videoId: 'mOYoCnzt_r8' },
-                { rank: 4, title: 'Дисс на Toxinator — ГЛАВНЫЙ ТОКСИК РАЙОНА', author: '@RAdiOlogicaL1233', views: '117', videoId: 'jWUlzclQ2yg' },
-                { rank: 5, title: 'Дисс на Zucks — КОРОЛЬ КРЫС ROYAL MINE', author: '@Zucks', views: '105', videoId: '65y0_QnLTiE' },
-                { rank: 6, title: 'Дисс на Арчи Плей — ЛЖЕЦ С МАНЕРАМИ + FIREFOX', author: '@ArchiePlayYT', views: '97', videoId: 'VZ-DTygw7i4' },
-                { rank: 7, title: 'Дисс на VINTI FROMON — Главного ОБЕЩАЛЬЩИКА района', author: '@Vinti_Fromon', views: '92', videoId: 'POymTQqTNzU' },
-                { rank: 8, title: 'Дисс на Миту — КОРОЛЕВА ОБМАНА (MiSide Diss)', author: '@MiSide', views: '76', videoId: 'U9CvK-SA6v4' },
-                { rank: 9, title: 'Дисс на КОРОЛЯ ОБЕЩАНИЙ — Тимошка из Москвы!', author: '@Timosha_MoscowOF', views: '70', videoId: 'TeY1zJNONE0' },
-                { rank: 10, title: 'Дисс на Битлвинда — КОРОЛЯ ПУСТЫХ ФАКТОВ', author: '@beatlewind', views: '65', videoId: 'uvW-Ooyx-A0' },
-            ];
-
-            // ==============================================================
             // ★★★ ЦИТАТЫ ТИМОФИЛО ★★★
             // ==============================================================
             const quotes = [
@@ -1925,59 +1824,6 @@
             ];
 
             // ==============================================================
-            // ★★★ ХРОНИКА ДИССОВ (47 штук — все done) ★★★
-            // ==============================================================
-            const chronicle = [
-                { name: 'Zucks', role: 'Король Крыс Royal Mine', status: 'done' },
-                { name: 'FIREFOX', role: 'Король Пустых Реакций', status: 'done' },
-                { name: 'Юни', role: 'Принцесса Пиксельного Аватара', status: 'done' },
-                { name: 'Муха', role: 'Король Нулевых Разоблачений', status: 'done' },
-                { name: 'Мита', role: 'Королева Обмана (MiSide)', status: 'done' },
-                { name: 'Римка', role: 'Фабрика Пустоты (+66 сквад)', status: 'done' },
-                { name: 'ЯЙЦО', role: 'Символ Лжи', status: 'done' },
-                { name: 'DISCORD', role: 'Платформа Пустоты', status: 'done' },
-                { name: 'АВЕС', role: 'Король Бесконечных Серий', status: 'done' },
-                { name: 'Бискас', role: 'Король Пустых Клипов', status: 'done' },
-                { name: 'Faer TV', role: 'Король Пустых Хорроров', status: 'done' },
-                { name: 'Игорь Лавомер', role: 'Король Пустых Вопросов', status: 'done' },
-                { name: 'Timosha_MoscowOF', role: 'Призрак Популярности', status: 'done' },
-                { name: 'SertTopik', role: 'Король Однообразия', status: 'done' },
-                { name: 'Dr. Morkovtsev', role: 'Теневой Король', status: 'done' },
-                { name: 'TStudios', role: 'Тёмный Продюсер', status: 'done' },
-                { name: 'Vinti Fromon', role: 'Главный Обещальщик района', status: 'done' },
-                { name: 'YATAVO', role: 'Молчаливая Картошка', status: 'done' },
-                { name: 'Дашка Принцесска', role: 'Постоянный Гость Тимошки', status: 'done' },
-                { name: 'Beatlewind', role: 'Король Пустых Фактов', status: 'done' },
-                { name: 'Русский язык', role: 'Ты слишком сложный', status: 'done' },
-                { name: 'ЧИСЛА', role: 'Кроме СИКС СЕВЕН (67)', status: 'done' },
-                { name: 'Toxinator', role: 'Главный Токсик Района', status: 'done' },
-                { name: 'Арчи Плей', role: 'Лжец с Манерами + FIREFOX', status: 'done' },
-                { name: 'Аластор', role: '[18+] Верная Собачка', status: 'done' },
-                { name: 'Скретч', role: 'Любитель Сикс Севен', status: 'done' },
-                { name: 'Райм', role: 'Король Троллинга', status: 'done' },
-                { name: 'Фласка', role: 'Королева Кринжа', status: 'done' },
-                { name: 'Алёнка', role: 'Принцесса Нейросети', status: 'done' },
-                { name: 'MrRostih', role: 'Бедварс-Блогер без Бедварс', status: 'done' },
-                { name: 'YARD', role: 'Король Рекламы', status: 'done' },
-                { name: 'Морфикс', role: 'Предатель', status: 'done' },
-                { name: 'Главнокомандующий', role: 'Генерал Пустых Обзоров', status: 'done' },
-                { name: 'Тимоша Музыка', role: 'Реакционер', status: 'done' },
-                { name: 'Четыре Стихии', role: 'Почему вы не тянете', status: 'done' },
-                { name: 'Команда Флоры', role: 'Паразиты Природы', status: 'done' },
-                { name: 'Пустота', role: 'Она не сможет ответить', status: 'done' },
-                { name: 'BeatleWind', role: 'Самый стыдный клоун Ютуба', status: 'done' },
-                { name: 'Дашка + Ростик', role: 'Лаборатория Любви (Шип-трек)', status: 'done' },
-                { name: 'Тимошка из Москвы (v2.0)', role: 'Призрак Популярности', status: 'done' },
-                { name: 'HELL', role: 'Хоррор-релиз', status: 'done' },
-                { name: '😈🥚67🔥', role: 'Символ-релиз', status: 'done' },
-                { name: 'Demon Egg Sixty Seven', role: 'Bombardillo OST', status: 'done' },
-                { name: 'Тим и Ростик', role: 'Релиз ПЕРВОЙ Песни', status: 'done' },
-                { name: 'Баллада о Мироходце', role: 'Лололошка и Фиксплей (НЕ Дисс)', status: 'done' },
-                { name: 'Вспомнить всё', role: 'Эпилог для пустоты', status: 'done' },
-                { name: 'Ваш Единственный Друг', role: 'Самый Токсичный Манипулятор', status: 'done' },
-            ];
-
-            // ==============================================================
             // ★★★ ТОП-ПАНЧИ ★★★
             // ==============================================================
             const punches = [
@@ -1992,33 +1838,7 @@
                 { rank: 9, text: 'Легендарный режим? Легендарный провал.', likes: 42, date: '30 августа' },
                 { rank: 10, text: 'Не надо меня с пятном сравнивать, я не нахожусь снизу видоса.', likes: 38, date: '17 августа' },
             ];
-
-            // ==============================================================
-            // ★★★ ОТМЕНЫ ★★★
-            // ==============================================================
-            const cancelled = [
-                { name: 'Zucks', role: 'Король Крыс' },
-                { name: 'FIREFOX', role: 'Король Пустых Реакций' },
-                { name: 'Римка', role: 'Фабрика Пустоты' },
-                { name: 'Юни', role: 'Принцесса Пиксельного Аватара' },
-                { name: 'Игорь Лавомер', role: 'Король Пустых Вопросов' },
-                { name: 'Toxinator', role: 'Главный Токсик Района' },
-                { name: 'Арчи Плей', role: 'Лжец с Манерами' },
-                { name: 'Мита', role: 'Королева Обмана' },
-                { name: 'Тимошка из Москвы', role: 'Призрак Популярности' },
-                { name: 'Муха', role: 'Король Нулевых Разоблачений' },
-                { name: 'Vinti Fromon', role: 'Главный Обещальщик' },
-                { name: 'Beatlewind', role: 'Король Пустых Фактов' },
-                { name: 'ЯЙЦО', role: 'Символ Лжи' },
-                { name: 'DISCORD', role: 'Платформа Пустоты' },
-                { name: 'АВЕС', role: 'Король Бесконечных Серий' },
-                { name: 'Faer TV', role: 'Король Пустых Хорроров' },
-                { name: 'SertTopik', role: 'Король Однообразия' },
-                { name: 'Dr. Morkovtsev', role: 'Теневой Король' },
-                { name: 'Аластор', role: '[18+] Верная Собачка' },
-                { name: 'Ваш Единственный Друг', role: 'Самый Токсичный Манипулятор' },
-            ];
-
+            
             const YOUTUBE_URL = 'https://www.youtube.com/@Tim_Brayrot';
 
             const images = wallpapers.map((img, index) => ({
